@@ -48,9 +48,13 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: DaanV2/Typescript-Action-Create-Includes@v1.0
+      - uses: DaanV2/Typescript-Action-Create-Includes@v1.1
         with: 
-          folder: ${{github.workspace}}
+          folder: ${{github.workspace}}/server/src
+
+      - uses: DaanV2/Typescript-Action-Create-Includes@v1.1
+        with: 
+          folder: ${{github.workspace}}/client/src
 
       - name: Commit changes
         continue-on-error: true
@@ -59,7 +63,7 @@ jobs:
           git config user.name bot
           git config user.email bot@example.com
           git add .
-          git commit -m "auto: Generated markdown indexes pages"
+          git commit -m "auto: Generated typescript includes"
           git push
 ```
 
