@@ -530,8 +530,7 @@ function CreateFolder(folder) {
     }
     //If there are any reference made we create the index page and return succes
     if (SubFolders.length > 0 || Documents.length > 0) {
-        let filepath = path_1.default.join(folder, 'index.md');
-        let Name = GetFolderName(folder);
+        let filepath = path_1.default.join(folder, 'include.ts');
         console.log('writing: ' + filepath);
         let Content = Template.replace(/\{\$SUBFOLDER\$\}/gi, SubFolders.join('\r\n'));
         Content = Content.replace(/\{\$DOCUMENTS\$\}/gi, Documents.join('\r\n'));
@@ -541,18 +540,6 @@ function CreateFolder(folder) {
     return false;
 }
 exports.CreateFolder = CreateFolder;
-/**
- * Returns the name of the folder
- * @param folderpath The whole folder path
- * @returns The name of the folder
- */
-function GetFolderName(folderpath) {
-    let LastIndex = folderpath.lastIndexOf('/');
-    if (LastIndex >= 0) {
-        return folderpath.substring(LastIndex + 1, folderpath.length);
-    }
-    return folderpath;
-}
 //# sourceMappingURL=traverse.js.map
 
 /***/ }),

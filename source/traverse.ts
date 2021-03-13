@@ -52,8 +52,7 @@ export function CreateFolder(folder: string): boolean {
 
 	//If there are any reference made we create the index page and return succes
 	if (SubFolders.length > 0 || Documents.length > 0) {
-		let filepath = path.join(folder, 'index.md');
-		let Name = GetFolderName(folder);
+		let filepath = path.join(folder, 'include.ts');
 		console.log('writing: ' + filepath);
 
 		let Content = Template.replace(/\{\$SUBFOLDER\$\}/gi, SubFolders.join('\r\n'));
@@ -64,20 +63,4 @@ export function CreateFolder(folder: string): boolean {
 	}
 
 	return false;
-}
-
-
-/**
- * Returns the name of the folder
- * @param folderpath The whole folder path
- * @returns The name of the folder
- */
-function GetFolderName(folderpath: string): string {
-	let LastIndex = folderpath.lastIndexOf('/');
-
-	if (LastIndex >= 0) {
-		return folderpath.substring(LastIndex + 1, folderpath.length);
-	}
-
-	return folderpath;
 }

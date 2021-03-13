@@ -23,7 +23,7 @@ The folder path to start at, use `${{github.workspace}}/source`
 ```yml
 # This is a basic workflow to help you get started with Actions
 
-name: Create markdown indexes
+name: Creating typescript includes
 
 # Controls when the action will run. 
 on:
