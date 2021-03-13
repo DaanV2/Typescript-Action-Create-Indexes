@@ -44,7 +44,7 @@ export function CreateFolder(folder: string): boolean {
 			else {
 				//If the child is a .md page create a reference
 				if (child.endsWith('.ts') && child != 'include.ts') {
-					Documents.push(`export * from "./${child}";`);
+					Documents.push(`export * from "./${child.substring(0, child.length - 3)}";`);
 				}
 			}
 		}
