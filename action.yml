@@ -1,5 +1,5 @@
-name: 'Markdown action: create indexes'
-description: 'Creates indexes pages for a markdown styled wiki'
+name: 'Typescript action: create includes'
+description: 'Creates includes.ts for a typescript project'
 branding:
   icon: activity
   color: blue
