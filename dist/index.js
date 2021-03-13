@@ -488,12 +488,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateFolder = void 0;
 const fs = __importStar(__nccwpck_require__(747));
 const path_1 = __importDefault(__nccwpck_require__(622));
-const Template = `# {$HEADER$}
-
-## Categories
-{$CATEGORIES$}
-
-## Documents
+const Template = `/*	Auto generated	*/
+{$SUBFOLDER$}
 {$DOCUMENTS$}`;
 const WriteOptions = {
     encoding: 'utf8'
@@ -521,13 +517,13 @@ function CreateFolder(folder) {
             if (fs.statSync(subfolder).isDirectory()) {
                 //Create index page, if succesfull we create a reference
                 if (CreateFolder(subfolder)) {
-                    SubFolders.push(`- [${child}](./${encodeURI(child)}/index.md)`);
+                    SubFolders.push(`export * as ${child.replace(/[ \t]/gi, '_')} from "./${child}/include";`);
                 }
             }
             else {
                 //If the child is a .md page create a reference
-                if (child.endsWith('.md') && child != 'index.md') {
-                    Documents.push(`- [${child.substring(0, child.length - 3)}](${child})`);
+                if (child.endsWith('.ts') && child != 'include.ts') {
+                    Documents.push(`export * from "./${child}";`);
                 }
             }
         }
@@ -537,8 +533,7 @@ function CreateFolder(folder) {
         let filepath = path_1.default.join(folder, 'index.md');
         let Name = GetFolderName(folder);
         console.log('writing: ' + filepath);
-        let Content = Template.replace(/\{\$HEADER\$\}/gi, Name);
-        Content = Content.replace(/\{\$CATEGORIES\$\}/gi, SubFolders.join('\r\n'));
+        let Content = Template.replace(/\{\$SUBFOLDER\$\}/gi, SubFolders.join('\r\n'));
         Content = Content.replace(/\{\$DOCUMENTS\$\}/gi, Documents.join('\r\n'));
         fs.writeFileSync(filepath, Content, WriteOptions);
         return true;
