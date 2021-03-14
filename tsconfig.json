@@ -4,8 +4,8 @@
     "esModuleInterop": true,
     "target": "ES2020",
     "moduleResolution": "node",
-    "sourceMap": true,    
+    "sourceMap": true,
     "outDir": "out"
   },
-  "lib": ["es2015"]
+  "lib": ["ES2020"]
 }
