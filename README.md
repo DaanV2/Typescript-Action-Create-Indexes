@@ -29,9 +29,9 @@ name: Creating typescript includes
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -48,11 +48,11 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: DaanV2/Typescript-Action-Create-Includes@v1.1
+      - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
         with: 
           folder: ${{github.workspace}}/server/src
 
-      - uses: DaanV2/Typescript-Action-Create-Includes@v1.1
+      - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
         with: 
           folder: ${{github.workspace}}/client/src
 
@@ -60,8 +60,8 @@ jobs:
         continue-on-error: true
         run: |
           cd ${{github.workspace}}
-          git config --global user.email "Bot@Blockception.com"
-          git config --global user.name "Blockception Bot"
+          git config --global user.email "Bot@DaanV2.com"
+          git config --global user.name "Bot"
           git add .
           git commit -m "auto: Generated typescript includes"
           git push
