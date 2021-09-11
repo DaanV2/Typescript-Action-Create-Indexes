@@ -1,12 +1,16 @@
-name: 'Typescript action: create includes'
-description: 'Creates includes.ts for a typescript project'
+name: 'Typescript action: generate includes'
+description: 'Generate includes.ts for a typescript project'
 branding:
   icon: activity
   color: blue
 inputs:
   folder:
     description: The folder path to start at
-    required: true
+    required: true,
+  excludes:
+    description: The patterns to use to exclude files and folders
+    required: false,
+    default: ""
 runs:
   using: 'node12'
   main: 'dist/index.js'

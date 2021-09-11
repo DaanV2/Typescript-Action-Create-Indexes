@@ -1,66 +1,75 @@
-import * as fs from 'fs';
-import path from 'path';
+import * as fs from "fs";
+import path from "path";
+import pm from "picomatch";
 
 const Template = `/*	Auto generated	*/
 {$SUBFOLDER$}
 {$DOCUMENTS$}`;
 
-const WriteOptions: fs.WriteFileOptions = {
-	encoding: 'utf8'
+function createContent(SubFolders: string[], Documents: string[]): string {
+  return Template.replace(/\{\$SUBFOLDER\$\}/gi, SubFolders.join("\r\n")).replace(/\{\$DOCUMENTS\$\}/gi, Documents.join("\r\n"));
 }
 
+const WriteOptions: fs.WriteFileOptions = {
+  encoding: "utf8",
+};
 
 /**
  * Creates a markdown index page
- * @param folder 
+ * @param folder
  * @returns True if the page was made.
  */
-export function CreateFolder(folder: string): boolean {
-	if (folder.includes('.git'))
-		return false;
+export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm.Matcher)[]): boolean {
+  if (folder.includes(".git")) return false;
 
-	let SubFolders: string[] = [];
-	let Documents: string[] = [];
+  const SubFolders: string[] = [];
+  const Documents: string[] = [];
 
-	//Get childern of folder
-	let childern = fs.readdirSync(folder);
+  //Get childern of folder
+  const childern = fs.readdirSync(folder);
 
-	//If childern is not undefined and has content then process it
-	if (childern && childern.length > 0) {
-		//Loop over
-		for (let I = 0; I < childern.length; I++) {
-			//grab item
-			const child = childern[I];
-			let subfolder = path.join(folder, child);
+  //If childern is not undefined and has content then process it
+  if (childern && childern.length > 0) {
+    //Loop over
+    for (let I = 0; I < childern.length; I++) {
+      //grab item
+      const child = childern[I];
+      if (IsExcluded(child, excludes)) continue;
 
-			//if child is an directory or not
-			if (fs.statSync(subfolder).isDirectory()) {
-				//Create index page, if succesfull we create a reference
+      const subfolder = path.join(folder, child);
 
-				if (CreateFolder(subfolder)) {
-					SubFolders.push(`export * as ${child.replace(/[ \t]/gi, '_')} from "./${child}/include";`);
-				}
-			}
-			else {
-				//If the child is a .md page create a reference
-				if (child.endsWith('.ts') && child != 'include.ts') {
-					Documents.push(`export * from "./${child.substring(0, child.length - 3)}";`);
-				}
-			}
-		}
-	}
+      //if child is an directory or not
+      if (fs.statSync(subfolder).isDirectory()) {
+        //Create index page, if succesfull we create a reference
 
-	//If there are any reference made we create the index page and return succes
-	if (SubFolders.length > 0 || Documents.length > 0) {
-		let filepath = path.join(folder, 'include.ts');
-		console.log('writing: ' + filepath);
+        if (CreateFolder(subfolder, excludes)) {
+          SubFolders.push(`export * as ${child.replace(/[ \t]/gi, "_")} from "./${child}/include";`);
+        }
+      } else {
+        //If the child is a .md page create a reference
+        if (child.endsWith(".ts") && child != "include.ts") {
+          Documents.push(`export * from "./${child.substring(0, child.length - 3)}";`);
+        }
+      }
+    }
+  }
 
-		let Content = Template.replace(/\{\$SUBFOLDER\$\}/gi, SubFolders.join('\r\n'));
-		Content = Content.replace(/\{\$DOCUMENTS\$\}/gi, Documents.join('\r\n'));
+  //If there are any reference made we create the index page and return succes
+  if (SubFolders.length > 0 || Documents.length > 0) {
+    const filepath = path.join(folder, "include.ts");
+    console.log("writing: " + filepath);
 
-		fs.writeFileSync(filepath, Content, WriteOptions);
-		return true;
-	}
+    fs.writeFileSync(filepath, createContent(SubFolders, Documents), WriteOptions);
+    return true;
+  }
 
-	return false;
+  return false;
+}
+
+function IsExcluded(filename: string, excludes: (pm.MatcherWithState | pm.Matcher)[]): boolean {
+  for (let I = 0; I < excludes.length; I++) {
+    if (excludes[I](filename)) return true;
+  }
+
+  return false;
 }
