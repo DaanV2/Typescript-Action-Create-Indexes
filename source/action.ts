@@ -1,7 +1,7 @@
 import { CreateFolder } from "./traverse";
 import * as fs from "fs";
 
-import corexp from "@actions/core";
+import * as core from "@actions/core";
 import pm from "picomatch";
 
 //Start code
@@ -9,8 +9,8 @@ try {
   // This should be a token with access to your repository scoped in as a secret.
   // The YML workflow will need to set myToken with the GitHub Secret Token
   // token: ${{ secrets.GITHUB_TOKEN }}
-  const Folder = corexp.getInput("folder");
-  const excludes = corexp.getMultilineInput("excludes", { required: false, trimWhitespace: true }).map((x) => pm(x));
+  const Folder = core.getInput("folder");
+  const excludes = core.getMultilineInput("excludes", { required: false, trimWhitespace: true }).map((x) => pm(x));
 
   var result = false;
 
@@ -26,7 +26,7 @@ try {
     console.log("success");
   } else {
     console.log("failure");
-    corexp.setFailed("no pages were created");
+    core.setFailed("no pages were created");
   }
 } catch (error) {
   let message: string;
@@ -34,7 +34,7 @@ try {
   if (error.message) message = error.message;
   else message = JSON.stringify(error);
 
-  if (corexp) corexp.setFailed(message);
+  if (core) core.setFailed(message);
   else {
     console.log(message);
     process.exit(1);

@@ -4,14 +4,17 @@
   "description": "The github action that creates index pages for your project",
   "main": "out/action.js",
   "scripts": {
-    "build": "tsc && npx ncc build",
-    "format": "prettier --write '**/*.ts'",
-    "format-check": "prettier --check '**/*.ts'",
-    "lint": "eslint src/**/*.ts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "npm run build",
+    "compile": "tsc -b && npx ncc build",
+    "build": "npm run clean && npm run compile",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "test": "mocha --debug-brk",
+    "clean": "rimraf lib",
+    "pretest": "npm run clean && tsc -b",
+    "prepublishOnly": "npm test && npm run build",
+    "preversion": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags",
-    "version": "git add ."
+    "version": "git add -A source",
+    "watch": "tsc -w -p ./source"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,7 @@
   "devDependencies": {
     "@types/node": "^14.17.15",
     "@types/picomatch": "^2.2.6",
+    "rimraf": "^3.0.2",
     "tslint": "^5.20.1",
     "typescript": "^3.9.10"
   },
