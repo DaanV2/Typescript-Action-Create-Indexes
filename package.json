@@ -4,14 +4,14 @@
   "description": "The github action that creates index pages for your project",
   "main": "out/action.js",
   "scripts": {
-    "build": "tsc && ncc build",
+    "build": "tsc && npx ncc build",
     "format": "prettier --write '**/*.ts'",
     "format-check": "prettier --check '**/*.ts'",
     "lint": "eslint src/**/*.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "preversion": "",
+    "preversion": "npm run build",
     "postversion": "git push && git push --tags",
-    "version": "git add -A src",
+    "version": "git add -A src"
   },
   "repository": {
     "type": "git",
