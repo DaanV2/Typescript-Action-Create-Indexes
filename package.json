@@ -13,7 +13,7 @@
     "prepublishOnly": "npm test && npm run build",
     "preversion": "npm run build && git add -A dist",
     "postversion": "git push && git push --tags",
-    "version": "git add -A source",
+    "version": "git add -A source && git add -A dist",
     "watch": "tsc -w -p ./source"
   },
   "repository": {
