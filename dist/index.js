@@ -2639,15 +2639,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const traverse_1 = __nccwpck_require__(784);
 const fs = __importStar(__nccwpck_require__(747));
-const core_1 = __importDefault(__nccwpck_require__(227));
+const core = __importStar(__nccwpck_require__(227));
 const picomatch_1 = __importDefault(__nccwpck_require__(588));
 //Start code
 try {
     // This should be a token with access to your repository scoped in as a secret.
     // The YML workflow will need to set myToken with the GitHub Secret Token
     // token: ${{ secrets.GITHUB_TOKEN }}
-    const Folder = core_1.default.getInput("folder");
-    const excludes = core_1.default.getMultilineInput("excludes", { required: false, trimWhitespace: true }).map((x) => picomatch_1.default(x));
+    const Folder = core.getInput("folder");
+    const excludes = core.getMultilineInput("excludes", { required: false, trimWhitespace: true }).map((x) => picomatch_1.default(x));
     var result = false;
     console.log("starting on: " + Folder);
     if (fs.existsSync(Folder)) {
@@ -2661,17 +2661,13 @@ try {
     }
     else {
         console.log("failure");
-        core_1.default.setFailed("no pages were created");
+        core.setFailed("no pages were created");
     }
 }
 catch (error) {
-    let message;
-    if (error.message)
-        message = error.message;
-    else
-        message = JSON.stringify(error);
-    if (core_1.default)
-        core_1.default.setFailed(message);
+    let message = JSON.stringify(error);
+    if (core)
+        core.setFailed(message);
     else {
         console.log(message);
         process.exit(1);

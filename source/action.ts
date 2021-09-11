@@ -28,11 +28,8 @@ try {
     console.log("failure");
     core.setFailed("no pages were created");
   }
-} catch (error: any) {
-  let message: string;
-
-  if (error && typeof error.message === "string") message = error.message;
-  else message = JSON.stringify(error);
+} catch (error) {
+  let message: string = JSON.stringify(error);
 
   if (core) core.setFailed(message);
   else {
