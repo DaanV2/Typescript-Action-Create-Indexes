@@ -1,6 +1,6 @@
 {
   "name": "typescript-action-create-includes",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "The github action that creates index pages for your project",
   "main": "dist/index.js",
   "scripts": {
