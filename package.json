@@ -2,12 +2,12 @@
   "name": "typescript-action-create-includes",
   "version": "1.5.0",
   "description": "The github action that creates index pages for your project",
-  "main": "out/action.js",
+  "main": "dist/index.js",
   "scripts": {
-    "compile": "tsc -b && npx ncc build",
+    "compile": "tsc && ncc build ./out/source/action.js -m",
     "build": "npm run clean && npm run compile",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "test": "mocha --debug-brk",
+    "test": "mocha -r ts-node/register '**/*.test.ts'",
     "clean": "rimraf lib",
     "pretest": "npm run clean && tsc -b",
     "prepublishOnly": "npm test && npm run build",
@@ -35,19 +35,19 @@
   "devDependencies": {
     "@types/chai": "^4.2.22",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^14.17.27",
+    "@types/node": "^16.11.1",
     "@types/picomatch": "^2.3.0",
+    "@vercel/ncc": "^0.31.1",
     "chai": "^4.3.4",
     "json-loader": "^0.5.7",
     "mocha": "^9.1.3",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.3.0",
-    "tslint": "^5.20.1",
-    "typescript": "^3.9.10"
+    "typescript": "^4.4.4"
   },
   "dependencies": {
-    "@actions/core": "^1.5.0",
+    "@actions/core": "^1.6.0",
     "@actions/github": "^5.0.0",
     "picomatch": "^2.3.0"
   }
