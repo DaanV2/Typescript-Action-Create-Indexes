@@ -51,12 +51,14 @@ jobs:
       - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
         with: 
           folder: ${{github.workspace}}/server/src
-          excludes: [*.test.ts]
+          excludes: "*.test.ts"
 
       - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
         with: 
           folder: ${{github.workspace}}/client/src
-          excludes: [*.test.ts]
+          excludes: |
+            "*.test.ts"
+            "include.ts"
 
       - name: Commit changes
         continue-on-error: true
