@@ -11,8 +11,21 @@ Its creates a list of each typescript file in the folder and for each sub folder
 
 ## Inputs
 
-**folder**:
+**folder**:  
 The folder path to start at, use `${{github.workspace}}/source`
+
+**excludes**:  
+The multi string glob patterns that can exclude files from being listed
+
+**export_sub_include**:  
+defaults to true
+Whenever or not a include.ts file should be specially exported:
+such as:
+
+```ts
+export * as Foo from 'Foo/include';
+```
+
 
 ## Examples
 
@@ -51,6 +64,7 @@ jobs:
       - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
         with: 
           folder: ${{github.workspace}}/server/src
+          export_sub_include: false
           excludes: "*.test.ts"
 
       - uses: DaanV2/Typescript-Action-Create-Includes@v1.2

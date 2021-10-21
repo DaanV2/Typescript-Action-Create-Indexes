@@ -11,13 +11,14 @@ try {
   // token: ${{ secrets.GITHUB_TOKEN }}
   const Folder = core.getInput("folder");
   const excludes = core.getMultilineInput("excludes", { required: false, trimWhitespace: true }).map((x) => pm(x));
+  const export_sub_include = core.getBooleanInput("export_sub_include", { required: false });
 
   var result = false;
 
   console.log("starting on: " + Folder);
 
   if (fs.existsSync(Folder)) {
-    result = CreateFolder(Folder, excludes);
+    result = CreateFolder(Folder, excludes, export_sub_include);
   } else {
     throw { message: "Couldnt not find folder: " + Folder };
   }

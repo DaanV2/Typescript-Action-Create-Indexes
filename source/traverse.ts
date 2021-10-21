@@ -19,7 +19,7 @@ const WriteOptions: fs.WriteFileOptions = {
  * @param folder
  * @returns True if the page was made.
  */
-export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm.Matcher)[]): boolean {
+export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm.Matcher)[], export_sub_include: boolean): boolean {
   if (folder.includes(".git")) return false;
 
   const SubFolders: string[] = [];
@@ -42,8 +42,10 @@ export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm
       if (fs.statSync(subfolder).isDirectory()) {
         //Create index page, if succesfull we create a reference
 
-        if (CreateFolder(subfolder, excludes)) {
-          SubFolders.push(`export * as ${child.replace(/[ \t]/gi, "_")} from "./${child}/include";`);
+        //If an include was made for the subfolder, add it to the list of subfolders
+        if (CreateFolder(subfolder, excludes, export_sub_include)) {
+          //If the option has been turned off, then dont add it
+          if (export_sub_include) SubFolders.push(`export * as ${child.replace(/[ \t]/gi, "_")} from "./${child}/include";`);
         }
       } else {
         //If the child is a .md page create a reference
