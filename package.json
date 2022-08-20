@@ -1,5 +1,5 @@
 {
-  "name": "typescript-action-create-includes",
+  "name": "typescript-action-create-indexes",
   "version": "1.5.1",
   "description": "The github action that creates index pages for your project",
   "main": "dist/index.js",
@@ -18,20 +18,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DaanV2/Typescript-Action-Create-Includes.git"
+    "url": "git+https://github.com/DaanV2/Typescript-Action-Create-Indexes.git"
   },
   "keywords": [
     "Github",
     "action",
     "typescript",
-    "include"
+    "indexes",
+    "index"
   ],
   "author": "DaanV2",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DaanV2/Typescript-Action-Create-Includes/issues"
+    "url": "https://github.com/DaanV2/Typescript-Action-Create-Indexes/issues"
   },
-  "homepage": "https://github.com/DaanV2/Typescript-Action-Create-Includes#readme",
+  "homepage": "https://github.com/DaanV2/Typescript-Action-Create-Indexes#readme",
   "devDependencies": {
     "@types/chai": "^4.2.22",
     "@types/mocha": "^9.0.0",

@@ -19,7 +19,7 @@ const WriteOptions: fs.WriteFileOptions = {
  * @param folder
  * @returns True if the page was made.
  */
-export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm.Matcher)[], export_sub_include: boolean): boolean {
+export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm.Matcher)[], export_sub_index: boolean): boolean {
   if (folder.includes(".git")) return false;
 
   const SubFolders: string[] = [];
@@ -42,14 +42,14 @@ export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm
       if (fs.statSync(subfolder).isDirectory()) {
         //Create index page, if succesfull we create a reference
 
-        //If an include was made for the subfolder, add it to the list of subfolders
-        if (CreateFolder(subfolder, excludes, export_sub_include)) {
+        //If an indexes was made for the subfolder, add it to the list of subfolders
+        if (CreateFolder(subfolder, excludes, export_sub_index)) {
           //If the option has been turned off, then dont add it
-          if (export_sub_include) SubFolders.push(`export * as ${child.replace(/[ \t]/gi, "_")} from "./${child}/include";`);
+          if (export_sub_index) SubFolders.push(`export * as ${child.replace(/[ \t]/gi, "_")} from "./${child}/index";`);
         }
       } else {
         //If the child is a .md page create a reference
-        if (child.endsWith(".ts") && child != "include.ts") {
+        if (child.endsWith(".ts") && child != "index.ts") {
           Documents.push(`export * from "./${child.substring(0, child.length - 3)}";`);
         }
       }
@@ -58,7 +58,7 @@ export function CreateFolder(folder: string, excludes: (pm.MatcherWithState | pm
 
   //If there are any reference made we create the index page and return succes
   if (SubFolders.length > 0 || Documents.length > 0) {
-    const filepath = path.join(folder, "include.ts");
+    const filepath = path.join(folder, "index.ts");
     console.log("writing: " + filepath);
 
     fs.writeFileSync(filepath, createContent(SubFolders, Documents), WriteOptions);

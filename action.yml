@@ -1,5 +1,5 @@
-name: 'Typescript action: generate includes'
-description: 'Generate includes.ts for a typescript project'
+name: 'Typescript action: generate indexes'
+description: 'Generate indexes.ts for a typescript project'
 branding:
   icon: activity
   color: blue
@@ -11,8 +11,8 @@ inputs:
     description: The patterns to use to exclude files and folders
     required: false,
     default: ""
-  export_sub_include:
-    description: Whenever or not a include.ts file should be specially exported
+  export_sub_index:
+    description: Whenever or not a index.ts file should be specially exported
     required: false,
     default: true
 runs:

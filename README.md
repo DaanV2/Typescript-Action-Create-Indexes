@@ -1,13 +1,13 @@
-# Typescript-Action-Create-Includes
+# Typescript-Action-Create-Indexes
 
-- [Typescript-Action-Create-Includes](#typescript-action-create-includes)
+- [Typescript-Action-Create-Indexes](#typescript-action-create-indexes)
   - [Inputs](#inputs)
   - [Examples](#examples)
   - [Example usage](#example-usage)
 
-The github action that creates include code files for your project, the changes still need to be submitted afterwards.
+The github action that creates indexes code files for your project, the changes still need to be submitted afterwards.
 
-Its creates a list of each typescript file in the folder and for each sub folder that has an `include.ts`.
+Its creates a list of each typescript file in the folder and for each sub folder that has an `index.ts`.
 
 ## Inputs
 
@@ -17,26 +17,26 @@ The folder path to start at, use `${{github.workspace}}/source`
 **excludes**:  
 The multi string glob patterns that can exclude files from being listed
 
-**export_sub_include**:  
+**export_sub_indexe**:  
 defaults to true
-Whenever or not a include.ts file should be specially exported:
+Whenever or not a index.ts file should be specially exported:
 such as:
 
 ```ts
-export * as Foo from 'Foo/include';
+export * as Foo from 'Foo/index';
 ```
 
 
 ## Examples
 
-![example](https://raw.githubusercontent.com/DaanV2/Typescript-Action-Create-Includes/main/assets/example.PNG)
+![example](https://raw.githubusercontent.com/DaanV2/Typescript-Action-Create-Indexes/main/assets/example.PNG)
 
 ## Example usage
 
 ```yml
 # This is a basic workflow to help you get started with Actions
 
-name: Creating typescript includes
+name: Creating typescript indexes
 
 # Controls when the action will run. 
 on:
@@ -61,18 +61,18 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
+      - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
         with: 
           folder: ${{github.workspace}}/server/src
-          export_sub_include: false
+          export_sub_indexe: false
           excludes: "*.test.ts"
 
-      - uses: DaanV2/Typescript-Action-Create-Includes@v1.2
+      - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
         with: 
           folder: ${{github.workspace}}/client/src
           excludes: |
             "*.test.ts"
-            "include.ts"
+            "index.ts"
 
       - name: Commit changes
         continue-on-error: true
@@ -81,7 +81,7 @@ jobs:
           git config --global user.email "Bot@DaanV2.com"
           git config --global user.name "Bot"
           git add .
-          git commit -m "auto: Generated typescript includes"
+          git commit -m "auto: Generated typescript indexes"
           git push
 ```
 
