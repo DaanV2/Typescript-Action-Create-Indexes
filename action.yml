@@ -6,15 +6,15 @@ branding:
 inputs:
   folder:
     description: The folder path to start at
-    required: true,
+    required: true
   excludes:
     description: The patterns to use to exclude files and folders
-    required: false,
+    required: false
     default: ""
   export_sub_index:
     description: Whenever or not a index.ts file should be specially exported
-    required: false,
-    default: true
+    required: false
+    default: "true"
 runs:
-  using: 'node12'
+  using: 'node16'
   main: 'dist/index.js'
