@@ -1,5 +1,8 @@
 # Typescript-Action-Create-Indexes
 
+[![tagged-release](https://github.com/DaanV2/Typescript-Action-Create-Indexes/actions/workflows/tagged-release.yml/badge.svg)](https://github.com/DaanV2/Typescript-Action-Create-Indexes/actions/workflows/tagged-release.yml)
+[![unit-test](https://github.com/DaanV2/Typescript-Action-Create-Indexes/actions/workflows/npm-test.yml/badge.svg)](https://github.com/DaanV2/Typescript-Action-Create-Indexes/actions/workflows/npm-test.yml)
+
 - [Typescript-Action-Create-Indexes](#typescript-action-create-indexes)
   - [Inputs](#inputs)
   - [Examples](#examples)

@@ -1,11 +1,15 @@
 name: unit-test
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
-    branches: [main]
-  workflow_dispatch:    
+    branches:
+      - main
+  workflow_dispatch:
 
-jobs:      
+jobs:
   test:
     name: test ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -13,18 +17,18 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
-        
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
           node-version: 14
-          
+
       - name: Build
         run: npm ci
-        
+
       - name: Test
         run: npm test
