@@ -4,15 +4,15 @@
   "description": "The github action that creates index pages for your project",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "tsc && ncc build ./out/source/action.js -m",
     "build": "npm run clean && npm run compile",
-    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
-    "test": "mocha -r ts-node/register '**/*.test.ts'",
     "clean": "rimraf lib",
-    "pretest": "npm run clean && tsc -b",
-    "prepublishOnly": "npm test && npm run build",
-    "preversion": "npm run build && git add -A dist",
+    "compile": "tsc && ncc build ./out/source/action.js -m",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "postversion": "git push && git push --tags",
+    "prepublishOnly": "npm test && npm run build",
+    "pretest": "npm run clean && tsc -b",
+    "preversion": "npm run build && git add -A dist",
+    "test": "mocha -r ts-node/register '**/*.test.ts'",
     "version": "git add -A source && git add -A dist",
     "watch": "tsc -w -p ./source"
   },
@@ -36,7 +36,7 @@
   "devDependencies": {
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.1",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.45",
     "@types/picomatch": "^2.3.0",
     "@vercel/ncc": "^0.33.4",
     "chai": "^4.3.6",
@@ -48,8 +48,8 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@actions/core": "^1.7.0",
-    "@actions/github": "^5.0.1",
+    "@actions/core": "^1.9.1",
+    "@actions/github": "^5.0.3",
     "picomatch": "^2.3.1"
   }
 }
