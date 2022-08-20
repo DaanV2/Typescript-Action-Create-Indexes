@@ -64,13 +64,13 @@ jobs:
       - uses: actions/checkout@v2.3.4
 
       # Runs a single command using the runners shell
-      - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
+      - uses: DaanV2/Typescript-Action-Create-Indexes@latest
         with: 
           folder: ${{github.workspace}}/server/src
           export_sub_index: false
           excludes: "*.test.ts"
 
-      - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
+      - uses: DaanV2/Typescript-Action-Create-Indexes@latest
         with: 
           folder: ${{github.workspace}}/client/src
           excludes: |
