@@ -20,7 +20,7 @@ The folder path to start at, use `${{github.workspace}}/source`
 **excludes**:  
 The multi string glob patterns that can exclude files from being listed
 
-**export_sub_indexe**:  
+**export_sub_index**:  
 defaults to true
 Whenever or not a index.ts file should be specially exported:
 such as:
@@ -67,7 +67,7 @@ jobs:
       - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
         with: 
           folder: ${{github.workspace}}/server/src
-          export_sub_indexe: false
+          export_sub_index: false
           excludes: "*.test.ts"
 
       - uses: DaanV2/Typescript-Action-Create-Indexes@v1.2
