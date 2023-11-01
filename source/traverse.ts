@@ -45,7 +45,7 @@ export function createFolder(folder: string, excludes: (pm.MatcherWithState | pm
         //If an indexes was made for the subfolder, add it to the list of subfolders
         if (createFolder(subfolder, excludes, export_sub_index)) {
           //If the option has been turned off, then don't add it
-          const c = child.replace(/[ \t-]/gi, "_");
+          const c = child.replace(/[ \t\-]/gi, "_");
 
           if (export_sub_index) SubFolders.push(`export * as ${c} from "./${child}/index";`);
         }
