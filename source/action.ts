@@ -1,8 +1,8 @@
-import { CreateFolder } from "./traverse";
-import * as fs from "fs";
+import { createFolder } from "./traverse";
 
-import * as core from "@actions/core";
 import pm from "picomatch";
+import * as fs from "fs";
+import * as core from "@actions/core";
 
 //Start code
 try {
@@ -18,9 +18,9 @@ try {
   console.log("starting on: " + Folder);
 
   if (fs.existsSync(Folder)) {
-    result = CreateFolder(Folder, excludes, export_sub_index);
+    result = createFolder(Folder, excludes, export_sub_index);
   } else {
-    throw { message: "Couldnt not find folder: " + Folder };
+    throw { message: "Couldn't not find folder: " + Folder };
   }
 
   if (result) {
