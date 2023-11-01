@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run clean && npm run compile",
     "clean": "rimraf lib",
-    "compile": "tsc && ncc build ./out/source/action.js -m",
+    "compile": "tsc && ncc build ./out/action.js -m",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "postversion": "git push && git push --tags",
     "prepublishOnly": "npm test && npm run build",
